@@ -44,8 +44,18 @@ def fix_machine(debris, product):
         return product
     return "Give me something that's not useless next time."
 
+def fix_machine2(debris,product):
+    for char in product:
+        if filter(lambda x: x.find(char)!=-1,debris)=='': return "Give me something that's not useless next time."
+    return product
+
 ### TEST CASES ###
 print "Test case 1: ", fix_machine('UdaciousUdacitey', 'Udacity') == "Give me something that's not useless next time."
 print "Test case 2: ", fix_machine('buy me dat Unicorn', 'Udacity') == 'Udacity'
 print "Test case 3: ", fix_machine('AEIOU and sometimes y... ', 'Udacity') == 'Udacity'
 print "Test case 4: ", fix_machine('wsx0-=mttrhix', 't-shirt') == 't-shirt'
+
+print "Test case 1: ", fix_machine2('UdaciousUdacitey', 'Udacity') == "Give me something that's not useless next time."
+print "Test case 2: ", fix_machine2('buy me dat Unicorn', 'Udacity') == 'Udacity'
+print "Test case 3: ", fix_machine2('AEIOU and sometimes y... ', 'Udacity') == 'Udacity'
+print "Test case 4: ", fix_machine2('wsx0-=mttrhix', 't-shirt') == 't-shirt'
