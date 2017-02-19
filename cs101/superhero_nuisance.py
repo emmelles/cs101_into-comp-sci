@@ -45,18 +45,19 @@ def fix_machine(debris, product):
         return product
     return "Give me something that's not useless next time."
 
-# Trying short:
-def fix_machine2(debris,product):
-    if set(debris).intersection(set(product))==set(product): return product
-    return "Give me something that's not useless next time."
+# One line:
+def fix_machine_real_quick(debris,product):
+    return product if set(debris).intersection(set(product))==set(product) else "Give me something that's not useless next time."
 
 ### TEST CASES ###
+print "Tests for long"
 print "Test case 1: ", fix_machine('UdaciousUdacitey', 'Udacity') == "Give me something that's not useless next time."
 print "Test case 2: ", fix_machine('buy me dat Unicorn', 'Udacity') == 'Udacity'
 print "Test case 3: ", fix_machine('AEIOU and sometimes y... ', 'Udacity') == 'Udacity'
 print "Test case 4: ", fix_machine('wsx0-=mttrhix', 't-shirt') == 't-shirt'
 
-print "Test case 1: ", fix_machine2('UdaciousUdacitey', 'Udacity') == "Give me something that's not useless next time."
-print "Test case 2: ", fix_machine2('buy me dat Unicorn', 'Udacity') == 'Udacity'
-print "Test case 3: ", fix_machine2('AEIOU and sometimes y... ', 'Udacity') == 'Udacity'
-print "Test case 4: ", fix_machine2('wsx0-=mttrhix', 't-shirt') == 't-shirt'
+print "Tests for one line"
+print "Test case 1: ", fix_machine_real_quick('UdaciousUdacitey', 'Udacity') == "Give me something that's not useless next time."
+print "Test case 2: ", fix_machine_real_quick('buy me dat Unicorn', 'Udacity') == 'Udacity'
+print "Test case 3: ", fix_machine_real_quick('AEIOU and sometimes y... ', 'Udacity') == 'Udacity'
+print "Test case 4: ", fix_machine_real_quick('wsx0-=mttrhix', 't-shirt') == 't-shirt'
