@@ -1,4 +1,4 @@
-#!/urb/bin/env python
+#!/usr/bin/env python
 
 #########################################################################
 #                 10-row School abacus
@@ -42,8 +42,10 @@
 # 4 STARS: 0 < lines <= 3
 
 def print_abacus(value):
-
-    
+    # Note that this assumes we've got integers or it won't work!
+    for i in range (9,-1,-1):
+        print "|"+"00000*****"[0:9-(value/10**i)]+"   "+"00000*****"[9-(value/10**i):9]+"|"
+        value=value%(10**i)
 
 ###  TEST CASES
 print "Abacus showing 0:"
