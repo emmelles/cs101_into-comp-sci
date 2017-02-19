@@ -31,6 +31,7 @@
 #  Gold  #  try solving this in one line.
 # Stars! #
 
+# Long, using units 1,2 only
 def fix_machine(debris, product):
     i=0
     rescue=True
@@ -44,10 +45,10 @@ def fix_machine(debris, product):
         return product
     return "Give me something that's not useless next time."
 
+# Trying short:
 def fix_machine2(debris,product):
-    for char in product:
-        if filter(lambda x: x.find(char)!=-1,debris)=='': return "Give me something that's not useless next time."
-    return product
+    if set(debris).intersection(set(product))==set(product): return product
+    return "Give me something that's not useless next time."
 
 ### TEST CASES ###
 print "Test case 1: ", fix_machine('UdaciousUdacitey', 'Udacity') == "Give me something that's not useless next time."
