@@ -43,12 +43,18 @@ def monthToDays(month,day):
 
 def daysBetweenDates(year1, month1, day1, year2, month2, day2):
     tot=0
-
-    # Taking args in any order and rearranging them:
+    
+    # If wrong order either rearranging them/printing error:
     if year1>year2 or year1==year2 and month1>month2 or \
        year1==year2 and month1==month2 and day1>day2:
-        year1, month1, day1, year2, month2, day2=\
-            year2, month2, day2, year1, month1, day1
+        #year1, month1, day1, year2, month2, day2=\
+        #    year2, month2, day2, year1, month1, day1
+        return "No time travel!"
+    
+    if year1<1582 or year1==1582 and month1<10 or \
+       year1==1582 and month1==10 and day1<15:
+        print '''Your date goes back to before the start of 
+        the Gregorian calendar, dates might be off.'''
     
     # Count the difference in day/month dates 
     tot+=abs(monthToDays(month2,day2)-monthToDays(month1,day1))
@@ -79,4 +85,7 @@ def test():
             print "Test case passed!"
 
 test()
+
+print daysBetweenDates(1400,2,2,1900,1,1)
+print daysBetweenDates(2011,2,2,2010,1,1)
 
