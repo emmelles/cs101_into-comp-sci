@@ -33,5 +33,20 @@ def get_all_links(page):
             break
     return list
 
+def union(a,b):
+    for x in a: 
+        if x not in b: a.append(x)
+    return a
+
+def crawl_web(seed):
+    tocrawl=[seed]
+    crawled=[]
+    while tocrawl:
+        page=tocrawl.pop() # Depth-first search
+        if page not in crawled:
+            union(tocrawl,get_all_links(get_page(page))) # Slightly tidier list
+            crawled.append(page)
+    return crawled
+
 seed='http://www.udacity.com/cs101x/index.html'
-print get_all_links(get_page(seed))
+print crawl_web(seed)
