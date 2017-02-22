@@ -22,13 +22,16 @@ def get_next_target(page):
     url=page[start_url+len(url_head):end_url]
     return url, end_url
 
-def print_all_links(page):
+def get_all_links(page):
+    list=[]
     while True:
         link, chop=get_next_target(page)
         if link:
-            print link
+            list.append(link)
             page=page[chop:]
         else:
             break
+    return list
 
-print_all_links(get_page('http://www.udacity.com/cs101x/index.html'))
+seed='http://www.udacity.com/cs101x/index.html'
+print get_all_links(get_page(seed))
