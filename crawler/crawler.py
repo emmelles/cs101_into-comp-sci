@@ -103,34 +103,60 @@ def index_union(a,b,index,indexlist):
             a.append(x)
             indexlist.append(index)
 
+def add_to_index(index,keyword,url):
+    for x in index:
+        if keyword==x[0]:
+            if url not in x[1]:
+                x[1].append(url)
+            return
+    index.append([keyword,[url]])
+
+def add_page_to_index(index,url,content):
+    content=content.split()
+    for entry in content:
+        if entry not in index: add_to_index(index,entry,url)
+
+def lookup(index,keyword):
+    for x in index:
+        if x[0]==keyword: 
+            return x[1]
+    return []       
+        
 def crawl_web(seed,maxdepth):
     tocrawl=[seed]
     crawled=[]
     crawlindex=[0]
     branchcrawled=[]
+    index=[]
     while tocrawl:
         page=tocrawl.pop() # Depth-first search
+        content=get_page(page)
         depth=crawlindex.pop()
         if page not in branchcrawled and depth <= maxdepth:
-            index_union(tocrawl,get_all_links(get_page(page)),depth+1,crawlindex) # Slightly tidier list
+            # i.e. if we haven't come across the page going down the current tree branch
+            add_page_to_index(index,page,content)
+            index_union(tocrawl,get_all_links(content),depth+1,crawlindex) # Slightly tidier list
             branchcrawled.append(page)
-        if depth >= maxdepth or not get_all_links(get_page(page)):
+        if depth >= maxdepth or not get_all_links(content):
+            # if the current branch exceeds max depth or terminates
             union(crawled,branchcrawled)
             branchcrawled=[]
             continue
-    return crawled
+    return index
 
-#seed="http://www.udacity.com/cs101x/index.html"
-#print crawl_web(seed,1)
+index=crawl_web("http://www.udacity.com/cs101x/index.html",1000)
+#index=crawl_web("https://www.st-andrews.ac.uk/",2)
 
-#print crawl_web("http://www.udacity.com/cs101x/index.html",0)
+#print index
+print lookup(index, 'you')
+
 #print crawl_web("http://www.udacity.com/cs101x/index.html",1)
 
 #print crawl_web("http://www.udacity.com/cs101x/index.html",50)
 
 #print crawl_web("http://top.contributors/forbiddenvoid.html",2)
 
-print crawl_web("A1",3)
+#print crawl_web("A1",3)
 
 # Currently works but unconvinced and spans branches
 
